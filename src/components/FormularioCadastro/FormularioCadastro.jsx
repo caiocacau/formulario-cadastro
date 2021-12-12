@@ -1,25 +1,51 @@
 import React from 'react';
-import Button from "@material-ui/core/Button";
+import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
 
 function FormularioCadastro() {
 
+    const [state, setState] = React.useState({
+        checkedA: true,
+        checkedB: true,
+    });
+
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
+
     return (
         <form>
-            <label>Nome</label>
-            <input type="text" />
+            <TextField id="nome" label="Nome" variant="outlined" fullWidth margin='dense' />
 
-            <label>Sobrenome</label>
-            <input type="text" />
+            <TextField id="sobrenome" label="Sobrenome" variant="outlined" fullWidth margin='dense' />
 
-            <label>CPF</label>
-            <input type="text" />
+            <TextField id="cpf" label="CPF" variant="outlined" fullWidth margin='dense' />
 
-            <label>Promoções</label>
-            <input type="checkbox" />
+            <FormControlLabel
+                control={
+                    <Switch
+                        defaultChecked
+                        checked={state.promocoes}
+                        onChange={handleChange}
+                        name="promocoes"
+                        color="primary"
+                    />
+                }
+                label="Promoções"
+            />
 
-            <label>Novidades</label>
-            <input type="checkbox" />
-
+            <FormControlLabel
+                control={
+                    <Switch
+                        defaultChecked
+                        checked={state.novidades}
+                        onChange={handleChange}
+                        name="novidades"
+                        color="primary"
+                    />
+                }
+                label="Novidades"
+            />
+            
             <Button type="submit" variant="contained" color="primary">
                 Cadastrar
             </Button>
