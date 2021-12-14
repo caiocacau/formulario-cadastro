@@ -4,7 +4,7 @@ import DadosEntrega from './DadosEntrega';
 import DadosPessoais from './DadosPessoais';
 import DadosUsuario from './DadosUsuario';
 
-function FormularioCadastro({ enviarDadosForm, validacoes }) {
+function FormularioCadastro({ enviarDadosForm }) {
 
     const [etapaAtual, setEtapaAtual] = useState(0);
     const [dadosColetados, setDados] = useState({});
@@ -17,9 +17,9 @@ function FormularioCadastro({ enviarDadosForm, validacoes }) {
 
     // Criando um Array para tornar o código mais legível
     const formularios = [
-        <DadosUsuario enviarDadosForm={coletarDados} validacoes={validacoes} />,
-        <DadosPessoais enviarDadosForm={coletarDados} validacoes={validacoes} />,
-        <DadosEntrega enviarDadosForm={coletarDados} validacoes={validacoes} />,
+        <DadosUsuario enviarDadosForm={coletarDados} />,
+        <DadosPessoais enviarDadosForm={coletarDados}  />,
+        <DadosEntrega enviarDadosForm={coletarDados}  />,
         <Typography variant="h5">Obrigado pelo cadastro!</Typography>
     ];
 

@@ -1,50 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, TextField, Switch, FormControlLabel } from "@material-ui/core";
+import ValidacoesCadastro from '../../contexts/validacoesCadastro';
+import useErros from '../../hooks/useErros';
 
-function DadosPessoais({ enviarDadosForm, validacoes }) {
+function DadosPessoais({ enviarDadosForm }) {
 
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
     const [cpf, setCpf] = useState("");
     //    const [promocoes, setPromocoes] = useState(true);
     //    const [novidades, setNovidades] = useState(false);
-
     const [state, setState] = React.useState({
         promocoes: true,
         novidades: false
     });
+    const validacoes = useContext(ValidacoesCadastro);
+    const [erros, validarCampos, formularioContemErros] = useErros(validacoes);
 
     const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-
-    const [erros, setErros] = useState({
-        cpf: {
-            valido: true,
-            texto: ""
-        },
-        nome: {
-            valido: true,
-            texto: ""
-        }
-    });
-
-    function validarCampos(event) {
-        const { name, value } = event.target;
-        const novoEstado = { ...erros };
-        // Dessa forma, ele cria um atributo com esse nome se não tiver ou sobrescreve ele
-        novoEstado[name] = validacoes[name](value);
-        setErros(novoEstado);
-    }
-
-    function formularioContemErros() {
-        for (let campo in erros) {
-            if (!erros[campo].valido) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     return (
         <form

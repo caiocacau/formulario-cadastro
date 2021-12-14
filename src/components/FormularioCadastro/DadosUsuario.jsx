@@ -1,34 +1,15 @@
 import { Button, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import ValidacoesCadastro from "../../contexts/validacoesCadastro";
+import useErros from "../../hooks/useErros";
 
-function DadosUsuario({ enviarDadosForm, validacoes }) {
+function DadosUsuario({ enviarDadosForm }) {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    const [erros, setErros] = useState({
-        senha: {
-            valido: true,
-            texto: ""
-        }
-    });
-
-    function validarCampos(event) {
-        const {name, value} = event.target;
-        const novoEstado = { ...erros };
-        // Dessa forma, ele cria um atributo com esse nome se não tiver ou sobrescreve ele
-        novoEstado[name] = validacoes[name](value);
-        setErros(novoEstado);
-    }
-
-    function formularioContemErros() {
-        for (let campo in erros) {
-            if (!erros[campo].valido) {
-                return true;
-            }
-        }
-        return false;
-    }
+    const validacoes = useContext(ValidacoesCadastro);
+    const [erros, validarCampos, formularioContemErros] = useErros(validacoes);
 
     return (
         <form
